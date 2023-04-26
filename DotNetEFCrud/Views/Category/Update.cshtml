@@ -1,0 +1,14 @@
+﻿@model CategoryUpdateInputModel
+
+
+<div cite="alert alert-danger">
+    @TempData["Mesaj"]
+</div>
+
+<form method="post" asp-route="updateCategory">
+    <input asp-for="Name" class="form-control"/>
+    <br />
+    <input asp-for="Description" class="form-control" />
+    <br />
+    <input type="submit" value="Update" class="btn btn-primary"/>
+</form>
