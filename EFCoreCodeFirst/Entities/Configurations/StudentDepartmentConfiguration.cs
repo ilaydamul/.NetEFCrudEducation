@@ -9,9 +9,10 @@ namespace EFCoreCodeFirst.Entities.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.Name).IsUnique();
+            builder.Property(x => x.Code).HasMaxLength(15);
 
             //Burada ilişki tanıma gerek yok. Tek bir yerde yazılması yeterlidir. Burada yapsaydık aşağıdaki gibi yazardık:
-            //builder.HasMany(x => x.Students).WithOne(x=>x.Department).HasForeignKey(x=>x.DepartmentId);
+            //builder.HasMany(st => st.Students).WithOne(dp=>dp.Department).HasForeignKey(st>st.DepartmentId);
         }
     }
 }

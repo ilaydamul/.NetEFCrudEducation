@@ -4,6 +4,8 @@
     {
         public string Id { get; private set; }
         public string Name { get; private set; }
+        public string? Code { get; private set; }
+
 
         //Name alanı constructordan girilmesi zorunlu bırakıldı.
         public StudentDepartment(string name)

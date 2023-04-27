@@ -13,6 +13,9 @@ namespace EFCoreCodeFirst.Entities
 
         //Öğrencinin Bölümü FK
         public string DepartmentId { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+
         //Navigation property Ögrencinin Bölüm Bilgisi
         public StudentDepartment Department { get; set; }
 
