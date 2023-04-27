@@ -7,7 +7,20 @@
 </div>
 *@
 
-<form method="post" asp-route="updateCategory">
+<form method="post" asp-route="updateCategory" >
+    @*
+    Tüm form işlemlerinde asp-antiforgery=true olarak gönderilir.
+    asp-antiforgery="false"
+
+    @Html.AntiForgeryToken();
+    Eski versiyonda formdan veri gönderirken antiforgerytoken html helper güvenlik için kullanırdık artık gerek kalmadı
+    *@
+    @*
+       
+    Bu versiyonda hidden input ile id taşımamıza gerek kalmadı.
+    <input asp-for="Id" type="hidden"/>
+    <br />
+    *@
     <input asp-for="Name" class="form-control"/>
     <br />
     <input asp-for="Description" class="form-control" />
