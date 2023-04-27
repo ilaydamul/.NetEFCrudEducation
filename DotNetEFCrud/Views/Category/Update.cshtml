@@ -1,9 +1,11 @@
 ﻿@model CategoryUpdateInputModel
 
-
+@*
 <div cite="alert alert-danger">
     @TempData["Mesaj"]
+    @ViewBag.Message;
 </div>
+*@
 
 <form method="post" asp-route="updateCategory">
     <input asp-for="Name" class="form-control"/>

@@ -14,7 +14,6 @@ namespace DotNetEFCrud.Controllers
             this.context = context;
         }
         [HttpGet("kategoriler", Name = "listCategory")]
-
         public IActionResult Index()
         {
             //select * from categories
@@ -35,6 +34,10 @@ namespace DotNetEFCrud.Controllers
 
             return View(model);
         }
+
+
+
+
         [HttpGet("kategori-guncelle/{id:int}", Name = "updateCategory")]
         public IActionResult Update(int id)
         {
@@ -55,6 +58,7 @@ namespace DotNetEFCrud.Controllers
         }
 
         [HttpPost("kategori-guncelle/{id:int}", Name = "updateCategory")]
+        [ValidateAntiForgeryToken]//Form üzerinden form bilgilerinin 3.kişiler tarafından değiştirilmesini engeller. (XSRF/CSRF)
         public IActionResult Update(CategoryUpdateInputModel uCategory)
         {
             var entity = context.Categories.Find(uCategory.Id);
@@ -62,6 +66,7 @@ namespace DotNetEFCrud.Controllers
             {
                 return NotFound();
             }
+
             entity.Description = uCategory.Description;
             entity.CategoryName = uCategory.Name;
 
@@ -70,15 +75,21 @@ namespace DotNetEFCrud.Controllers
 
             if (result > 0)
             {
-                TempData["Mesaj"] = "Güncelleme İşlemi Başarılı.";
+                TempData["IsSucceded"] = true;
+                TempData["Message"] = "Güncelleme İşlemi Başarılı.";
             }
             else
             {
-                TempData["Mesaj"] = "Güncelleme İşlemi Başarısız. Tekrar Deneyiniz.";
+                ViewBag.IsSucceded = false;
+                ViewBag.Message = "Güncelleme İşlemi Başarısız. Tekrar Deneyiniz.";
                 return View();
             }
             return RedirectToAction("Index");
+            //return RedirectToAction("listCategory");
         }
+
+
+
 
         [HttpGet("kategori-sil/{id:int}", Name = "deleteCategory")]
         public IActionResult Delete(int id)
@@ -114,11 +125,13 @@ namespace DotNetEFCrud.Controllers
                     {
                         //Eğer bir viewden başka bir view veri taşınacak ise bunu mvc de tempdata ile yaparız.
                         //Viewbag Viewdata ise sadece ilgili actiondan kendi view'une veri taşıyacağımız durumda kullanılır.
-                        TempData["Mesaj"] = "İşlem Başarılı!";
+                        TempData["IsSucceded"] = true;
+                        TempData["Message"] = "Silme İşlemi Başarılı!";
                     }
                     else
                     {
-                        TempData["Mesaj"] = "İşlem Başarısız. Tekrar Deneyiniz.";
+                        TempData["IsSucceded"] = false;
+                        TempData["Message"] = "Silme İşlemi Başarısız. Tekrar Deneyiniz.";
 
                     }
                 }
@@ -137,13 +150,18 @@ namespace DotNetEFCrud.Controllers
 
         }
 
+
+
+
         [HttpGet("kategori-ekle",Name ="addCategory")]
         public IActionResult Add() {
             var model = new CategoryAddInputModel();
             
             return View(model);
         }
+
         [HttpPost("kategori-ekle",Name ="addCategory")]
+        [ValidateAntiForgeryToken]
         public IActionResult Add(CategoryAddInputModel aCategory) 
         {
             //if (ModelState.IsValid)
@@ -172,11 +190,13 @@ namespace DotNetEFCrud.Controllers
 
                 if (result > 0)
                 {
-                    TempData["Mesaj"] = "Ekleme İşlemi Başarılı.";
+                    TempData["IsSucceded"] = true;
+                    TempData["Message"] = "Ekleme İşlemi Başarılı.";
                 }
                 else
                 {
-                    TempData["Mesaj"] = "Bir sorun meydana geldi. Lütfen daha sonra tekrar deneyiniz.";
+                    TempData["IsSucceded"] = false;
+                    TempData["Message"] = "Bir sorun meydana geldi. Lütfen daha sonra tekrar deneyiniz.";
                     return View();
                 }
 

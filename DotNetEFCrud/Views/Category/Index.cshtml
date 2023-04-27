@@ -15,9 +15,18 @@
     </style>
 }
 
+@*
+    Layout değiştirme:
+@{
+    Layout = null;
+}
+*@
+
+@*
 <div class="text-success" >
     @TempData["Mesaj"]
 </div>
+*@
 
 <div class="text-right mb-2">
     <a class="btn btn-info color-white" asp-route="addCategory">Add Category</a>

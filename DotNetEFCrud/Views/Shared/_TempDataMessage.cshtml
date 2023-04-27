@@ -1,0 +1,15 @@
+﻿@if (TempData["IsSucceded"] != null)
+{
+    if ((bool)TempData["IsSucceded"] == true)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            @TempData["Message"]
+        </div>
+    }
+}

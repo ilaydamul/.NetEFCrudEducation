@@ -1,15 +1,16 @@
 ﻿@model CategoryAddInputModel
 
+@*
 <div class="text-danger">
     @TempData["Mesaj"]
 </div>
-
+*@
 
 <form method="post" novalidate asp-route="addCategory">
-    <input class="form-control" asp-for="CategoryName"/>
+    <input class="form-control" asp-for="CategoryName" placeholder="Category Name"/>
     <span asp-validation-for="CategoryName" class="text-danger"></span>
     <br/>
-    <input class="form-control" asp-for="Description"/>
+    <input class="form-control" asp-for="Description" placeholder="Description"/>
     <br />
     <input type="submit" value="Add" class="btn btn-primary"/>
 </form>
