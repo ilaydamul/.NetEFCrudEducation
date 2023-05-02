@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace EFCoreCodeFirst.Entities
 {
@@ -13,16 +14,19 @@ namespace EFCoreCodeFirst.Entities
 
         //Öğrencinin Bölümü FK
         public string DepartmentId { get; set; }
+        public string LessonsId { get; set; }
 
         public DateTime? CreatedAt { get; set; }
 
         //Navigation property Ögrencinin Bölüm Bilgisi
         public StudentDepartment Department { get; set; }
-
+        public List<Lesson> Lessons { get; set; }
         public Student() 
         {
             //Random oluşturuyor.32 numaralık string oluşturuyor.
             Id = Guid.NewGuid().ToString();
         }    
+
+
     }
 }

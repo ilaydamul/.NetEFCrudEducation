@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetEFCrud", "DotNetEFCrud\DotNetEFCrud.csproj", "{C37D531D-26D7-4A6C-83EF-7C8F2DE96707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreCodeFirst", "EFCoreCodeFirst\EFCoreCodeFirst.csproj", "{51830BBD-9957-411C-BCB5-3F36C567DAA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreCodeFirst", "EFCoreCodeFirst\EFCoreCodeFirst.csproj", "{51830BBD-9957-411C-BCB5-3F36C567DAA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreActionResults", "NetCoreActionResults\NetCoreActionResults.csproj", "{AE91C94E-2FAC-4BBA-99F0-72FB71E9DA60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{51830BBD-9957-411C-BCB5-3F36C567DAA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51830BBD-9957-411C-BCB5-3F36C567DAA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51830BBD-9957-411C-BCB5-3F36C567DAA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE91C94E-2FAC-4BBA-99F0-72FB71E9DA60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE91C94E-2FAC-4BBA-99F0-72FB71E9DA60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE91C94E-2FAC-4BBA-99F0-72FB71E9DA60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE91C94E-2FAC-4BBA-99F0-72FB71E9DA60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

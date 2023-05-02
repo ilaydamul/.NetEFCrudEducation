@@ -158,6 +158,12 @@ namespace EFCoreCodeFirst.Controllers
             //2 Kayıt atlat, 3 kayıt al 
             var o16 = await dbContext.Students.Include(x => x.Department).OrderBy(x => x.Name).Skip(2).Take(3).ToListAsync();
 
+            //Fizik dersindeki öprencileri getiren sorgu
+            var s1 = (await dbContext.Lessons.Include(x => x.Students).FirstOrDefaultAsync(x => x.Name == "Fizik")).Students.ToList();
+
+            //Adı Kasım olan öğrencinin girdiği dersler
+            var s2 = (await dbContext.Students.Include(x => x.Lessons).FirstOrDefaultAsync(x => x.Number == "03")).Lessons.ToList();
+
 
 
             return View();

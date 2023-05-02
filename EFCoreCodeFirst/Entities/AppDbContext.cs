@@ -16,6 +16,7 @@ namespace EFCoreCodeFirst.Entities
         public DbSet<Student> Students { get; set; }// Tablo isimlerinin sonuna s takısı koyarak entity ile karışmasını engelledik. DbSet EF'den gelen özel bir property, bu property ile veri tabanı ile tablolar arasında bir geçiş sağlanır.
 
         public DbSet<StudentDepartment> StudentDepartments { get; set; }  
+        public DbSet<Lesson> Lessons { get; set; }
         //public DbSet<StudentDepartmentView> StudentDepartmentViews { get; set; }
 
         //Model oluşurken konfigurasyon işlemlerinin model db'de oluşmadan önce dbye tanıtıldığı yer.
@@ -23,7 +24,7 @@ namespace EFCoreCodeFirst.Entities
         {
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             modelBuilder.ApplyConfiguration(new StudentDepartmentConfiguration());
-
+            modelBuilder.ApplyConfiguration(new LessonConfiguration());
             //modelBuilder.Entity<StudentDepartmentView>.HasNoKey();
             //modelBuilder.ApplyConfiguration(new StudentDepartmentView()).HasNoKey();
 
