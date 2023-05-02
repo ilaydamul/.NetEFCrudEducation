@@ -11,10 +11,20 @@
 
 @* View'den partial çağırma yöntemi *@
 @* Tag Helper Yöntemi 
-<partial name="/Partials/_TestPartial" model="new PartialViewModel()" />
+
+
+<partial name="~/Partials/_TestPartial" model="new PartialViewModel()" />
 *@
 
 <hr/>
-@* Html Helper Yöntemi *@
 
-@await Html.PartialAsync("Partials/_TestPartial",Model.PartialModel);
+
+@* Html Helper Yöntemi *@
+@await Html.PartialAsync("Partials/_TestPartial",Model.PartialModel)
+
+
+<hr />
+
+
+@* View Component çalıştırma çağırma şeklimiz. Aşağıdaki gibi componentin hiçbir model bağımlılığı yoktur. *@
+@await Component.InvokeAsync("Test",new {title="Deneme"})

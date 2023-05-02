@@ -1,0 +1,83 @@
+﻿@model List<UserViewModel>
+
+
+
+<hr />
+@* JS ile form gönderme AJAX *@
+<form novalidate onsubmit="SendUserAjax(event)" method="post">
+    <label>Email</label>
+    <input id="emailInput" class="form-control" type="text" name="Email" />
+    <label>UserName</label>
+    <input id="usernameInput" class="form-control" type="text" name="UserName" />
+    <button class="btn btn-success" type="submit">JSON Ekle</button>
+</form>
+
+
+<ul id="liste" class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">@item.UserName</li>
+    }
+</ul>
+
+<button onclick="SendUser()">User Bilgilerini Kontrol Et</button>
+
+@*
+Veri gönderme işleminde eğer contentType bilgisini belirtmezsek json xml tipinde istek yaptıgımız bilgisi bu durumda 415 hata kodu alırız.
+*@
+
+@section Scripts{
+    <script>
+        function SendUserAjax(event) {
+            const data = {
+                Email: $("#emailInput").val(),
+                UserName: $("#usernameInput").val()
+            };
+
+
+            //$ keyword ile jquery kütüphanesini bağlandık. Jquery kütüphanesi üzerinden $.ajax json result ile çalışmış olduk.
+            console.log("frm", $(event).serializeArray());
+            $.ajax({
+                method: "POST",
+                url: "json-result",
+                data: JSON.stringify(data),
+                success: (response) => {
+                    console.log("Sonuç: ", response)
+                    if (response.isSucceded) {
+                        //Backtick
+                        $("#liste").append(`<li class="list-group-item">${data.UserName}</li>`)
+                    }
+                },
+                error: (error) => {
+                    console.log("Hata:", error);
+                }
+            })
+
+
+            event.preventDefault();
+        }
+
+        function SendUser() {
+            var data = { UserName: "İlayda", Email: "ilaydaqgmail.com" };
+
+            fetch('/json-result', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(data)
+            })
+                .then(response => {
+                    //İsteğin başarılı sonuçlandığında çalışacak olan fuction
+                    return response.json();
+                }).then((data) => {
+                    //JSON formatında dönmüş hali yakalanır. MVCden dönen mesajı yakalarız.
+                    console.log(data);
+                }).catch(function (err) {
+                    //İstek hatalo olduğunda çalışacak function
+                    console.log('error', err);
+                })
+        }
+
+    </script>
+}
