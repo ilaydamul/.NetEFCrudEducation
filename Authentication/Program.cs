@@ -1,7 +1,19 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,opt =>
+{
+    opt.Cookie.HttpOnly= false;//Secure. Sadece https kanalýndan aktif olacak.
+    opt.Cookie.SameSite = SameSiteMode.Strict;
+    opt.ExpireTimeSpan= TimeSpan.FromDays(30);
+    opt.LoginPath = "/login";
+    opt.LogoutPath = "/logout";
+    opt.AccessDeniedPath= "/unathorized";
+    opt.SlidingExpiration = true;//20dkda bir oturumu arttýr.
+});
 
 var app = builder.Build();
 
@@ -17,7 +29,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();//Kimlik doðrulamasý middleware aktif hale getiririz.
 app.UseAuthorization();
 
 app.MapControllerRoute(
