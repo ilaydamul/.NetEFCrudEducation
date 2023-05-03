@@ -4,7 +4,7 @@
 
 <hr />
 @* JS ile form gönderme AJAX *@
-<form novalidate onsubmit="SendUserAjax(event)" method="post">
+<form novalidate onsubmit="SendUserAjax(event)" id="frm" method="post">
     <label>Email</label>
     <input id="emailInput" class="form-control" type="text" name="Email" />
     <label>UserName</label>
@@ -30,22 +30,34 @@ Veri gönderme işleminde eğer contentType bilgisini belirtmezsek json xml tipi
     <script>
         function SendUserAjax(event) {
             const data = {
-                Email: $("#emailInput").val(),
-                UserName: $("#usernameInput").val()
+                //Email: $("#emailInput").val(),
+                //UserName: $("#usernameInput").val()
             };
+
+            const formData = $('#frm').serializeArray();
+            $.each(formData, (index, item) => {
+                console.log('key', index);
+                console.log('value', item);
+                data[item.name] = item.value;
+            })
+            console.log('data', data);
 
 
             //$ keyword ile jquery kütüphanesini bağlandık. Jquery kütüphanesi üzerinden $.ajax json result ile çalışmış olduk.
-            console.log("frm", $(event).serializeArray());
+            //AJAX ile post ederken action içindeki modelden önce bodyden gönderildiğini söylemek için FromBody kullanırız.
+            //FromBody'i sadece contentType application/json olduğunda kullanırız. Bunun dışında hata verebilir.
+            //Yani ya actionda FromBody, ajaxda contentType:"application/json" kullanıcaz ya da
             $.ajax({
                 method: "POST",
                 url: "json-result",
+                contentType: "application/json",
                 data: JSON.stringify(data),
                 success: (response) => {
                     console.log("Sonuç: ", response)
                     if (response.isSucceded) {
                         //Backtick
                         $("#liste").append(`<li class="list-group-item">${data.UserName}</li>`)
+                        $("#frm").trigger("reset");
                     }
                 },
                 error: (error) => {

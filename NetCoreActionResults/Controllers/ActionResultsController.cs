@@ -37,8 +37,10 @@ namespace NetCoreActionResults.Controllers
         //besleneceği bir servis gibi de kullanılabilir.
         //Like, comment, paylaş gibi arayüzde sayfa yenilenmeden yapılması gereken işlemler için tercih ederiz.
         //JsonResultların kendine ait bir view'ı olmaz. Bir view içerisinden viewcomponent gibi veya partial gibi çağırılırlar. Tek değişiklik js olarak çağırılmalarıdır.
+        //AJAX için FromBody yazmayı unutmayalım!!
+        //Fetch işlemlerinde post ederken FromBody attribute yazmamıza gerek yok.
         [HttpPost("json-result")]
-        public JsonResult JsonResult(UserInputModel model)
+        public JsonResult JsonResult([FromBody] UserInputModel model)
         {
             //Veri tabanı işlemleri.
             var result = new JsonViewModel
