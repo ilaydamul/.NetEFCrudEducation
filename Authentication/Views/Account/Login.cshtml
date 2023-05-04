@@ -8,6 +8,7 @@
 @model LoginInputModel
 
 <form asp-route="loginRoute" method="post">
+    <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
     <input class="form-control" asp-for="Email" />
     <br />
     <input class="form-control" asp-for="Password" type="password"  />

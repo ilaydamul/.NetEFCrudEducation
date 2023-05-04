@@ -11,8 +11,19 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     opt.ExpireTimeSpan= TimeSpan.FromDays(30);
     opt.LoginPath = "/login";
     opt.LogoutPath = "/logout";
-    opt.AccessDeniedPath= "/unathorized";
+    opt.AccessDeniedPath= "/unauthorized";
     opt.SlidingExpiration = true;//20dkda bir oturumu arttýr.
+});
+
+//Behaviour bilmemne
+builder.Services.AddAuthorization(policy =>
+{
+    policy.AddPolicy("UserDeletePolicy", options =>
+    {
+        options.RequireAuthenticatedUser(); //Kimlik doðrulamasý gerekiyor.
+        options.RequireClaim("User","Delete"); //User claiminin Delete valuesuna izin var.
+        options.RequireRole("Manager"); //Kullanýcý manager rolüne sahip olmalýdýr.
+    });
 });
 
 var app = builder.Build();

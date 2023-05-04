@@ -9,14 +9,18 @@ namespace Authentication.Controllers
     public class AccountController : Controller
     {
         [HttpGet("login", Name = "loginRoute")]
-        public IActionResult Login()
+        public IActionResult Login(string ReturnUrl)
         {
             var model = new LoginInputModel();
+            //HttpContext.Request.Path;
+
+            ViewBag.ReturnUrl = ReturnUrl;
+
             return View(model);
         }
 
         [HttpPost("login", Name = "loginRoute")]
-        public async Task<IActionResult> Login(LoginInputModel model)
+        public async Task<IActionResult> Login(LoginInputModel model, string ReturnUrl)
         {
             if (model.Email == "test@test.com" && model.Password == "pass123")
             {
@@ -28,6 +32,8 @@ namespace Authentication.Controllers
                 claim.Add(new Claim("Email", model.Email));
                 claim.Add(new Claim("UserId", Guid.NewGuid().ToString()));
                 claim.Add(new Claim("Role", "Admin"));
+                claim.Add(new Claim("Role", "Manager"));
+                //claim.Add(new Claim("User","Delete")); //Permission
 
                 //ClaimIdentity bu sınıf üzerinden yukaridaki claimler ile login olabiliriz
                 //Oturum açacak kullanıcı kimlik bilgisi.
@@ -39,17 +45,32 @@ namespace Authentication.Controllers
                     IsPersistent = model.RememberMe,//Outurum kalıcı olsun. false dersek oturum session bazlı tutulur. Siteden ayrılma tekrar login olmamız gerekir.
                     AllowRefresh = true
                 };
-                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, authProps);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle, authProps);
+
+                //if (returnUrl)
+                //{
+                //    return Redirect(returnUrl);
+                //}
+
+                //var returnUrl = HttpContext.Request.Query["ReturnUrl"];
+                return Redirect(ReturnUrl);
 
             }
 
-            return View();
+
+            return Redirect("/");
         }
 
         public async Task<IActionResult> LogOut()
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);//Oturumdan güvenli çıkış yapmamızı sağlar.
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);//Oturumdan güvenli çıkış yapmamızı sağlar.
             return Redirect("/login");
+        }
+
+        [HttpGet("unauthorized")]
+        public IActionResult UnAuthorized()
+        {
+            return View();
         }
     }
 }
