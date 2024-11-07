@@ -19,6 +19,9 @@ namespace WebApiIdentity.Controllers
         }
         // api/users/1/profile
         // api/User/Profile/1 --MVC
+        // nested Route
+        // api/makaleler/5/yorumlar/3
+        // Makaleler/Yorum?makaleId=5&YorumId=3
         [HttpGet("list",Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
